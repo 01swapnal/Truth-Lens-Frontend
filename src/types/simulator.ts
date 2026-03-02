@@ -131,16 +131,3 @@ export interface DetectionSubmissionResult {
   feedback?: string;
 }
 
-export interface LeaderboardEntry {
-  userId: string;
-  totalScore: number;
-  gamesPlayed: number;
-}
-
-export interface UserSimulatorStats {
-  userId: string;
-  gamesPlayed: number;
-  averageManipulationScore: number;
-  detectionAccuracy: number;
-  completedChallenges: number;
-}

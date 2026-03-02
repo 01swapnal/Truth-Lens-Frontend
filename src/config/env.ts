@@ -15,8 +15,6 @@ interface AppEnv {
     simulatorDetectionChallenges: string;
     simulatorDetectionSubmit: string;
     simulatorDetectionHistory: string;
-    simulatorLeaderboard: string;
-    simulatorStats: string;
   };
 }
 
@@ -31,16 +29,16 @@ function parseNumber(value: string | undefined, defaultValue: number): number {
 }
 
 export const appEnv: AppEnv = {
-  apiBaseUrl: (import.meta.env.VITE_API_BASE_URL as string | undefined)?.trim() ?? "",
-  useMockApi: parseBoolean(import.meta.env.VITE_USE_MOCK_API as string | undefined, true),
+  apiBaseUrl: (import.meta.env.VITE_API_BASE_URL as string | undefined)?.trim() ?? "http://localhost:3000",
+  useMockApi: parseBoolean(import.meta.env.VITE_USE_MOCK_API as string | undefined, false),
   requestTimeoutMs: parseNumber(import.meta.env.VITE_API_TIMEOUT_MS as string | undefined, 8000),
   endpoints: {
     highImpact: (import.meta.env.VITE_API_HIGH_IMPACT_PATH as string | undefined) ?? "/api/news/high-impact",
     trending: (import.meta.env.VITE_API_TRENDING_PATH as string | undefined) ?? "/api/news/trending",
     article: (import.meta.env.VITE_API_ARTICLE_PATH as string | undefined) ?? "/api/news/article",
-    factCheck: (import.meta.env.VITE_API_FACT_CHECK_PATH as string | undefined) ?? "/api/news/fact-check",
+    factCheck: (import.meta.env.VITE_API_FACT_CHECK_PATH as string | undefined) ?? "/api/fact-check/text",
     viral: (import.meta.env.VITE_API_VIRAL_PATH as string | undefined) ?? "/api/news/viral",
-    lensTruth: (import.meta.env.VITE_API_LENS_TRUTH_PATH as string | undefined) ?? "/api/news/lens-truth",
+    lensTruth: (import.meta.env.VITE_API_LENS_TRUTH_PATH as string | undefined) ?? "/api/fact-check/text",
     simulatorScenarios: (import.meta.env.VITE_API_SIM_SCENARIOS_PATH as string | undefined) ?? "/api/simulator/scenarios",
     simulatorGames: (import.meta.env.VITE_API_SIM_GAMES_PATH as string | undefined) ?? "/api/simulator/games",
     simulatorStartGame: (import.meta.env.VITE_API_SIM_START_GAME_PATH as string | undefined) ?? "/api/simulator/games/start",
@@ -49,8 +47,6 @@ export const appEnv: AppEnv = {
     simulatorDetectionSubmit:
       (import.meta.env.VITE_API_SIM_DETECTION_SUBMIT_PATH as string | undefined) ?? "/api/simulator/detection/submit",
     simulatorDetectionHistory:
-      (import.meta.env.VITE_API_SIM_DETECTION_HISTORY_PATH as string | undefined) ?? "/api/simulator/detection/history",
-    simulatorLeaderboard: (import.meta.env.VITE_API_SIM_LEADERBOARD_PATH as string | undefined) ?? "/api/simulator/leaderboard",
-    simulatorStats: (import.meta.env.VITE_API_SIM_STATS_PATH as string | undefined) ?? "/api/simulator/stats"
+      (import.meta.env.VITE_API_SIM_DETECTION_HISTORY_PATH as string | undefined) ?? "/api/simulator/detection/history"
   }
 };

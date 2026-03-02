@@ -7,10 +7,8 @@ import type {
   DetectionChallenge,
   DetectionSubmissionResult,
   GameState,
-  LeaderboardEntry,
   MakeChoiceResponse,
-  Scenario,
-  UserSimulatorStats
+  Scenario
 } from "../types/simulator";
 
 type Mode = "creation" | "detection";
@@ -195,8 +193,6 @@ function Simulator() {
   const [detectionResult, setDetectionResult] = useState<DetectionSubmissionResult | null>(null);
 
   // Shared state
-  const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
-  const [userStats, setUserStats] = useState<UserSimulatorStats | null>(null);
   const [isBusy, setIsBusy] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -215,11 +211,9 @@ function Simulator() {
       setErrorMessage("");
 
       try {
-        const [scenarioData, challengeData, leaderboardData, statsData] = await Promise.all([
+        const [scenarioData, challengeData] = await Promise.all([
           simulatorApi.getScenarios(),
-          simulatorApi.getDetectionChallenges(),
-          simulatorApi.getLeaderboard(),
-          simulatorApi.getUserStats(userId)
+          simulatorApi.getDetectionChallenges()
         ]);
 
         if (!mounted) return;
@@ -227,8 +221,6 @@ function Simulator() {
         setScenarios(scenarioData);
         setSelectedScenarioId((current) => current || scenarioData[0]?.id || "");
         setChallenges(challengeData);
-        setLeaderboard(leaderboardData);
-        setUserStats(statsData);
       } catch {
         if (mounted) setErrorMessage("Unable to load simulator data.");
       } finally {
@@ -343,9 +335,6 @@ function Simulator() {
         );
         setCurrentNode(result.currentNode ?? null);
       }
-
-      const latestStats = await simulatorApi.getUserStats(userId);
-      setUserStats(latestStats);
     } catch {
       setErrorMessage("Failed to make choice. Please try again.");
     } finally {
@@ -400,8 +389,6 @@ function Simulator() {
         timeSpentSeconds: elapsedSeconds
       });
       setDetectionResult(result);
-      const latestStats = await simulatorApi.getUserStats(userId);
-      setUserStats(latestStats);
     } catch {
       setErrorMessage("Detection submission failed.");
     } finally {
@@ -428,7 +415,7 @@ function Simulator() {
   }
 
   return (
-    <section className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-[1.45fr_1fr]">
+    <section className="w-full p-6">
       <div>
         <h1 className="text-2xl font-semibold">Misinformation Simulator</h1>
         <p className={themeMode === "dark" ? "mt-2 text-sm text-zinc-400" : "mt-2 text-sm text-zinc-600"}>
@@ -797,47 +784,6 @@ function Simulator() {
           </div>
         )}
       </div>
-
-      <aside className={themeMode === "dark" ? "rounded-lg bg-surface p-5" : "rounded-lg bg-zinc-100 p-5"}>
-        <h3 className="text-base font-semibold">Learning Snapshot</h3>
-        {userStats ? (
-          <div className="mt-3 space-y-3 text-sm">
-            <div className="flex items-center justify-between">
-              <span className="text-zinc-500">Games played</span>
-              <span>{userStats.gamesPlayed}</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-zinc-500">Avg manipulation score</span>
-              <span>{Math.round(userStats.averageManipulationScore)}</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-zinc-500">Detection accuracy</span>
-              <span>{Math.round(userStats.detectionAccuracy)}%</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-zinc-500">Challenges completed</span>
-              <span>{userStats.completedChallenges}</span>
-            </div>
-          </div>
-        ) : (
-          <p className={themeMode === "dark" ? "mt-3 text-sm text-zinc-400" : "mt-3 text-sm text-zinc-600"}>Stats unavailable.</p>
-        )}
-
-        <h3 className="mt-7 text-base font-semibold">Leaderboard</h3>
-        <div className="mt-3 space-y-2">
-          {leaderboard.map((entry, index) => (
-            <div key={entry.userId} className={themeMode === "dark" ? "rounded-md border border-zinc-700 p-3" : "rounded-md border border-zinc-300 p-3"}>
-              <div className="flex items-center justify-between text-sm">
-                <span>#{index + 1} {entry.userId}</span>
-                <span className="font-semibold">{entry.totalScore}</span>
-              </div>
-              <p className={themeMode === "dark" ? "mt-1 text-xs text-zinc-400" : "mt-1 text-xs text-zinc-600"}>{entry.gamesPlayed} games played</p>
-            </div>
-          ))}
-        </div>
-
-        {isBusy && <p className={themeMode === "dark" ? "mt-4 text-xs text-zinc-400" : "mt-4 text-xs text-zinc-600"}>Loading simulator data...</p>}
-      </aside>
     </section>
   );
 }

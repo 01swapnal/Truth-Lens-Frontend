@@ -14,14 +14,12 @@ import type {
   DetectionSubmissionPayload,
   DetectionSubmissionResult,
   GameState,
-  LeaderboardEntry,
   MakeChoicePayload,
   MakeChoiceResponse,
   Scenario,
   SimulationGame,
   StartGamePayload,
-  StartGameResponse,
-  UserSimulatorStats
+  StartGameResponse
 } from "../types/simulator";
 
 const endpoints = {
@@ -33,9 +31,7 @@ const endpoints = {
   userGames: (userId: string) => `${(appEnv.endpoints.simulatorGames ?? "/api/simulator/games") as string}/user/${userId}`,
   detectionChallenges: (appEnv.endpoints.simulatorDetectionChallenges ?? "/api/simulator/detection/challenges") as string,
   detectionSubmit: (appEnv.endpoints.simulatorDetectionSubmit ?? "/api/simulator/detection/submit") as string,
-  detectionHistory: (userId: string) => `${(appEnv.endpoints.simulatorDetectionHistory ?? "/api/simulator/detection/history") as string}/${userId}`,
-  leaderboard: (appEnv.endpoints.simulatorLeaderboard ?? "/api/simulator/leaderboard") as string,
-  userStats: (userId: string) => `${(appEnv.endpoints.simulatorStats ?? "/api/simulator/stats") as string}/${userId}`
+  detectionHistory: (userId: string) => `${(appEnv.endpoints.simulatorDetectionHistory ?? "/api/simulator/detection/history") as string}/${userId}`
 };
 
 const mockScenarios: Scenario[] = [
@@ -661,29 +657,5 @@ export const simulatorApi = {
     withFallback(
       () => apiRequest<DetectionSubmissionResult[]>(endpoints.detectionHistory(userId)),
       () => withMockDelay([])
-    ),
-
-  getLeaderboard: () =>
-    withFallback(
-      () => apiRequest<LeaderboardEntry[]>(endpoints.leaderboard),
-      () =>
-        withMockDelay([
-          { userId: "demo-user", totalScore: 1820, gamesPlayed: 14 },
-          { userId: "media-lab", totalScore: 1630, gamesPlayed: 11 },
-          { userId: "truth-club", totalScore: 1525, gamesPlayed: 10 }
-        ])
-    ),
-
-  getUserStats: (userId: string) =>
-    withFallback(
-      () => apiRequest<UserSimulatorStats>(endpoints.userStats(userId)),
-      () =>
-        withMockDelay({
-          userId,
-          gamesPlayed: 6,
-          averageManipulationScore: 74,
-          detectionAccuracy: 68,
-          completedChallenges: 9
-        })
     )
 };
