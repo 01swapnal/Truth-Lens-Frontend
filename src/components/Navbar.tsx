@@ -8,7 +8,7 @@ const menuItems = [
   { label: "Trending News", ariaLabel: "View trending news", link: "/trending" },
   { label: "Fake or Not", ariaLabel: "Check viral fake news", link: "/fake-or-not" },
   { label: "News Analyzer", ariaLabel: "Open news analyzer", link: "/analyzer" },
-  { label: "Methodology", ariaLabel: "Read methodology", link: "/methodology" },
+  { label: "Feed", ariaLabel: "Open verified feed", link: "/feed" },
   { label: "About", ariaLabel: "Learn about truth lens", link: "/about" }
 ];
 
@@ -22,7 +22,7 @@ const slideTabs = [
   { label: "Home", link: "/" },
   { label: "Trending", link: "/trending" },
   { label: "Analyzer", link: "/analyzer" },
-  { label: "Methodology", link: "/methodology" },
+  { label: "Feed", link: "/feed" },
   { label: "About", link: "/about" }
 ];
 

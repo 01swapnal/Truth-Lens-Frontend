@@ -5,28 +5,25 @@ import HOTSSection from "../components/HOTSSection";
 import LiquidEther from "../components/LiquidEther.jsx";
 import RotatingText from "../components/RotatingText";
 import SearchBar from "../components/SearchBar";
+import SpotlightCards from "../components/SpotlightCards";
 import { useTheme } from "../components/ThemeContext";
-import TrendingSection from "../components/TrendingSection";
 import type { TopicSummary } from "../types/news";
+import GetMessage from "../components/GetMessage";
+
 
 function Home() {
   const navigate = useNavigate();
   const { mode } = useTheme();
   const [hotTopics, setHotTopics] = useState<TopicSummary[]>([]);
-  const [trending, setTrending] = useState<TopicSummary[]>([]);
 
   useEffect(() => {
     let active = true;
 
     async function loadData() {
-      const [hotResponse, trendingResponse] = await Promise.all([
-        newsApi.getHighImpactTopics(),
-        newsApi.getTrendingTopics()
-      ]);
+      const hotResponse = await newsApi.getHighImpactTopics();
 
       if (active) {
         setHotTopics(hotResponse);
-        setTrending(trendingResponse);
       }
     }
 
@@ -39,6 +36,7 @@ function Home() {
 
   return (
     <div className="pb-8">
+      <GetMessage />
       <section
         className={
           mode === "dark"
@@ -97,12 +95,14 @@ function Home() {
       </section>
 
       <HOTSSection topics={hotTopics} />
-      <TrendingSection topics={trending} />
+      <SpotlightCards />
 
       <footer className={mode === "dark" ? "mt-12 border-t border-zinc-800 pt-6 text-center text-xs text-zinc-500" : "mt-12 border-t border-zinc-200 pt-6 text-center text-xs text-zinc-600"}>
         Truth Lens | Neutrality-focused analysis skeleton | Mock data mode
       </footer>
     </div>
+
+    
   );
 }
 

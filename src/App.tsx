@@ -5,8 +5,8 @@ import { LensProvider } from "./components/LensContext";
 import Layout from "./components/Layout";
 import { ThemeProvider } from "./components/ThemeContext";
 import FakeOrNot from "./routes/FakeOrNot";
+import Feed from "./routes/Feed";
 import Home from "./routes/Home";
-import Methodology from "./routes/Methodology";
 import Result from "./routes/Result";
 import Trending from "./routes/Trending";
 
@@ -21,7 +21,7 @@ function App() {
             <Route path="/analyzer" element={<Analyzer />} />
             <Route path="/trending" element={<Trending />} />
             <Route path="/fake-or-not" element={<FakeOrNot />} />
-            <Route path="/methodology" element={<Methodology />} />
+            <Route path="/feed" element={<Feed />} />
             <Route path="/about" element={<About />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
