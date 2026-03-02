@@ -9,6 +9,14 @@ interface AppEnv {
     factCheck: string;
     viral: string;
     lensTruth: string;
+    simulatorScenarios: string;
+    simulatorGames: string;
+    simulatorStartGame: string;
+    simulatorDetectionChallenges: string;
+    simulatorDetectionSubmit: string;
+    simulatorDetectionHistory: string;
+    simulatorLeaderboard: string;
+    simulatorStats: string;
   };
 }
 
@@ -32,6 +40,17 @@ export const appEnv: AppEnv = {
     article: (import.meta.env.VITE_API_ARTICLE_PATH as string | undefined) ?? "/api/news/article",
     factCheck: (import.meta.env.VITE_API_FACT_CHECK_PATH as string | undefined) ?? "/api/news/fact-check",
     viral: (import.meta.env.VITE_API_VIRAL_PATH as string | undefined) ?? "/api/news/viral",
-    lensTruth: (import.meta.env.VITE_API_LENS_TRUTH_PATH as string | undefined) ?? "/api/news/lens-truth"
+    lensTruth: (import.meta.env.VITE_API_LENS_TRUTH_PATH as string | undefined) ?? "/api/news/lens-truth",
+    simulatorScenarios: (import.meta.env.VITE_API_SIM_SCENARIOS_PATH as string | undefined) ?? "/api/simulator/scenarios",
+    simulatorGames: (import.meta.env.VITE_API_SIM_GAMES_PATH as string | undefined) ?? "/api/simulator/games",
+    simulatorStartGame: (import.meta.env.VITE_API_SIM_START_GAME_PATH as string | undefined) ?? "/api/simulator/games/start",
+    simulatorDetectionChallenges:
+      (import.meta.env.VITE_API_SIM_DETECTION_CHALLENGES_PATH as string | undefined) ?? "/api/simulator/detection/challenges",
+    simulatorDetectionSubmit:
+      (import.meta.env.VITE_API_SIM_DETECTION_SUBMIT_PATH as string | undefined) ?? "/api/simulator/detection/submit",
+    simulatorDetectionHistory:
+      (import.meta.env.VITE_API_SIM_DETECTION_HISTORY_PATH as string | undefined) ?? "/api/simulator/detection/history",
+    simulatorLeaderboard: (import.meta.env.VITE_API_SIM_LEADERBOARD_PATH as string | undefined) ?? "/api/simulator/leaderboard",
+    simulatorStats: (import.meta.env.VITE_API_SIM_STATS_PATH as string | undefined) ?? "/api/simulator/stats"
   }
 };

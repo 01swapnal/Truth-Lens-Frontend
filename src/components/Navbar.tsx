@@ -7,6 +7,7 @@ import { useTheme } from "./ThemeContext";
 const menuItems = [
   { label: "Trending News", ariaLabel: "View trending news", link: "/trending" },
   { label: "Fake or Not", ariaLabel: "Check viral fake news", link: "/fake-or-not" },
+  { label: "Simulator", ariaLabel: "Open misinformation simulator", link: "/simulator" },
   { label: "News Analyzer", ariaLabel: "Open news analyzer", link: "/analyzer" },
   { label: "Methodology", ariaLabel: "Read methodology", link: "/methodology" },
   { label: "About", ariaLabel: "Learn about truth lens", link: "/about" }
@@ -21,6 +22,7 @@ const socialItems = [
 const slideTabs = [
   { label: "Home", link: "/" },
   { label: "Trending", link: "/trending" },
+  { label: "Simulator", link: "/simulator" },
   { label: "Analyzer", link: "/analyzer" },
   { label: "Methodology", link: "/methodology" },
   { label: "About", link: "/about" }

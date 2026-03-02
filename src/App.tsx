@@ -8,6 +8,7 @@ import FakeOrNot from "./routes/FakeOrNot";
 import Home from "./routes/Home";
 import Methodology from "./routes/Methodology";
 import Result from "./routes/Result";
+import Simulator from "./routes/Simulator";
 import Trending from "./routes/Trending";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
             <Route path="/analyzer" element={<Analyzer />} />
             <Route path="/trending" element={<Trending />} />
             <Route path="/fake-or-not" element={<FakeOrNot />} />
+            <Route path="/simulator" element={<Simulator />} />
             <Route path="/methodology" element={<Methodology />} />
             <Route path="/about" element={<About />} />
             <Route path="*" element={<Navigate to="/" replace />} />
