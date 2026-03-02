@@ -42,12 +42,12 @@ function Home() {
       <section
         className={
           mode === "dark"
-            ? "relative mx-auto min-h-[68vh] overflow-hidden rounded-xl bg-surface py-16 text-center"
-            : "relative mx-auto min-h-[68vh] overflow-hidden rounded-xl bg-white py-16 text-center"
+            ? "relative left-1/2 right-1/2 -mx-[50vw] min-h-[68vh] w-screen overflow-hidden bg-surface py-16 text-center"
+            : "relative left-1/2 right-1/2 -mx-[50vw] min-h-[68vh] w-screen overflow-hidden bg-zinc-50 py-16 text-center shadow-inner"
         }
       >
         <div className={mode === "dark" ? "pointer-events-none absolute inset-0 opacity-65 blur-[0.2px]" : "pointer-events-none absolute inset-0 opacity-80 blur-[0.2px]"}>
-          <div className="relative left-1/2 top-1/2 h-[1080px] w-[1080px] -translate-x-1/2 -translate-y-1/2">
+          <div className="absolute inset-0 h-full w-full">
             <LiquidEther
               mouseForce={13}
               cursorSize={140}
@@ -65,7 +65,7 @@ function Home() {
         {mode === "dark" ? (
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(139,0,0,0.35),transparent_45%),linear-gradient(180deg,rgba(10,10,10,0.78)_0%,rgba(6,6,6,0.9)_100%)]" />
         ) : (
-          <div className="pointer-events-none absolute inset-0 bg-white/20" />
+          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.45)_0%,rgba(244,244,245,0.7)_100%)]" />
         )}
         <div className="relative z-10 mx-auto max-w-4xl px-4 pt-12 sm:pt-16">
           <h1
